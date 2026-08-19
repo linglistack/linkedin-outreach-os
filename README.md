@@ -5,37 +5,48 @@
 [![Claude Skill](https://img.shields.io/badge/Claude-Skill-d97757.svg)](https://claude.com/claude-code)
 [![Powered by LinkedNav](https://img.shields.io/badge/engine-LinkedNav-2563eb.svg)](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os)
 
-**An open-source Claude Skill that runs your LinkedIn outreach like a full go-to-market team.**
+**One Claude skill that does your LinkedIn outreach for you — like a whole team in a box.**
 
-Install it into Claude and get a **Strategist**, a **Copywriter**, a **Prospector**, a
-**Launch Operator**, an **Inbox Manager**, and an **Analyst** — one skill, six operators.
+Install it into Claude and you get six helpers:
 
-- 🧠 **Strategy, ICP, and message sequences are free.** They run on Claude's reasoning
-  alone. No account, no key, no signup — install the skill and start.
-- ⚡ **Execution runs live through [LinkedNav](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os).** Connect the
-  LinkedNav MCP server (~2 min, see [`CONNECT.md`](./CONNECT.md)) and the same plan
-  builds your setup, sources real leads, launches campaigns, sends, and audits — all
-  from inside your AI chat.
-
-This repo is the **skill (the prompts, roles, and playbooks)**. It's open source, MIT.
-The engine that actually acts on LinkedIn — sourcing, sending, enrichment, inbox,
-analytics — is [LinkedNav](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os), reached over the open
-[Model Context Protocol](https://modelcontextprotocol.io). Open orchestration, hosted engine.
+| Helper | What it does for you |
+|--------|----------------------|
+| 🧠 **Strategist** | Picks who to target and what to say |
+| ✍️ **Copywriter** | Writes your invite + follow-up messages |
+| 🔎 **Prospector** | Finds the right people to reach |
+| 🚀 **Launch Operator** | Sets it up and turns it on |
+| 💬 **Inbox Manager** | Answers your replies |
+| 📊 **Analyst** | Tells you what's working and what to fix |
 
 ---
 
-## What it does
+## The simple version
 
-| Ask | Role | Works with nothing connected? |
-|-----|------|-------------------------------|
-| "Who should I target and what's my angle?" | Strategist | ✅ Yes |
-| "Write my connect note and follow-up sequence" | Copywriter | ✅ Yes |
-| "Where do I find these people?" | Prospector | ✅ Plan free · sourcing needs LinkedNav |
+> **This skill writes the plan. [LinkedNav](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os) does the work.**
+
+- 🧠 **Thinking is free.** Ask Claude for your strategy, target list, and messages.
+  No account. No signup. Just install and start.
+- ⚡ **Doing it for real needs LinkedNav.** Connect it once (~2 min — see
+  [`CONNECT.md`](./CONNECT.md)) and Claude actually finds leads, sends the invites, and
+  handles replies — right inside your chat.
+
+The skill (all the prompts and playbooks in this repo) is **open source, MIT**. LinkedNav
+is the engine it plugs into, over the open [Model Context Protocol](https://modelcontextprotocol.io).
+
+---
+
+## What each helper can do on its own
+
+| You ask | Helper | Free? |
+|---------|--------|-------|
+| "Who should I target and what's my angle?" | Strategist | ✅ Free |
+| "Write my invite and follow-ups" | Copywriter | ✅ Free |
+| "Where do I find these people?" | Prospector | ✅ Plan is free · finding them needs LinkedNav |
 | "Set it up and turn it on" | Launch Operator | ⚡ Needs LinkedNav |
 | "Handle my replies" | Inbox Manager | ⚡ Needs LinkedNav |
 | "Why isn't this working?" | Analyst | ⚡ Needs LinkedNav |
 
-Full end-to-end playbooks are in [`workflows/`](./workflows).
+Step-by-step playbooks are in [`workflows/`](./workflows).
 
 ---
 
@@ -43,70 +54,63 @@ Full end-to-end playbooks are in [`workflows/`](./workflows).
 
 ### Claude Code
 ```bash
-# Clone into your Claude skills directory
+# Clone into your Claude skills folder
 git clone https://github.com/linglistack/linkedin-outreach-os \
   ~/.claude/skills/linkedin-outreach-os
 ```
-Then in Claude Code: `/linkedin-outreach-os` (or just describe an outreach task).
+Then in Claude Code: `/linkedin-outreach-os` — or just describe an outreach task.
 
 ### Claude Desktop / claude.ai
-Add it as a Skill (Settings → Capabilities → Skills) by uploading this folder, or
-point your Skills directory at this repo. See
+Add it as a Skill (Settings → Capabilities → Skills) by uploading this folder. See
 [Anthropic's Skills docs](https://docs.claude.com) for the current path.
 
 ### Any MCP-capable client (Cursor, Cline, SDK, …)
-Drop the `roles/`, `reference/`, and `workflows/` files into your system context, or
-reference `SKILL.md` as the entry point.
+Point your skills/context at this repo, starting from [`SKILL.md`](./SKILL.md).
 
 ---
 
-## Connect the engine (to run it live)
+## Connect LinkedNav (to run it live)
 
-The strategy and copy work immediately. To **source leads, launch, send, and audit**,
-connect the LinkedNav MCP server:
+The strategy and message-writing work right away. To **find leads, launch, send, and
+check results**, connect LinkedNav:
 
 1. Sign up at **[linkednav.com](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os)** (free trial).
-2. Create an API key at **[/app/api-keys](https://www.linkednav.com/app/api-keys?utm_source=github&utm_campaign=outreach-os)**.
-3. Add the MCP server `https://mcp.linkednav.com/`.
+2. Get an API key at **[/app/api-keys](https://www.linkednav.com/app/api-keys?utm_source=github&utm_campaign=outreach-os)**.
+3. Add the server `https://mcp.linkednav.com/`.
 
-Full copy-paste config for Claude Code, Claude Desktop, and Cursor is in
+Copy-paste setup for Claude Code, Claude Desktop, and Cursor is in
 **[`CONNECT.md`](./CONNECT.md)**.
 
 ---
 
-## How the pieces fit
+## How it fits together
 
 ```
-  You ──▶ Claude + LinkedIn Outreach OS  (this repo — open source)
-                     │
-                     │  strategy · ICP · copy · plan        → delivered by reasoning (free)
+  You ──▶ Claude + this skill        →  plans, targeting, and messages   (free)
                      │
                      ▼
-             LinkedNav MCP  (mcp.linkednav.com — hosted, needs a key)
-                     │
-                     ▼
-     source leads · enrich · launch · send · inbox · analytics
+             LinkedNav               →  finds leads, sends, replies, reports
+          (connect with a key)
 ```
 
 ---
 
 ## FAQ
 
-**Is this really open source if execution needs a key?**
-Yes — the same way an open-source app that calls an API is open source. Every prompt,
-role, and playbook in this repo is MIT-licensed and fully readable. The strategy and
-copywriting are 100% functional with nothing connected. LinkedNav is the hosted engine
-the execution steps call — open orchestration, hosted engine ("open core").
+**Is it really open source if I need a key?**
+Yes — the same way an open-source app that calls an API is open source. Every prompt and
+playbook here is free to read and use (MIT), and the strategy and message-writing work
+with nothing connected. LinkedNav is just the engine the "do it live" steps call.
 
-**Can I point it at a different backend?**
-The skill files are yours to fork. The execution steps are written against the LinkedNav
-MCP tool contract (`reference/mcp-tools.md`); rewire them if you like.
+**Can I use my own backend?**
+Yes. Fork the skill and rewire the live steps — they're written against the LinkedNav
+tool list in [`reference/mcp-tools.md`](./reference/mcp-tools.md).
 
-**Do I need to be a LinkedNav customer to use the free parts?**
-No. Install the skill and get strategy, ICP, and full message sequences with no account.
+**Do I have to pay to try it?**
+No. Install it and get your strategy, targeting, and full message sequence for free.
 
 ---
 
 ## License
 
-[MIT](./LICENSE). Built to pair with [LinkedNav](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os).
+[MIT](./LICENSE). Made to work with [LinkedNav](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os).
