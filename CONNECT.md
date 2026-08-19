@@ -1,46 +1,35 @@
-# Connect LinkedNav (the execution engine)
+# Connect LinkedNav
 
-The strategy and copywriting in this skill work with **nothing connected**. To
-*run* the work — source real leads, launch campaigns, enrich, send, read your
-inbox, and audit performance — connect the **LinkedNav MCP server**. It takes
-about two minutes.
+On its own, the skill can plan your outreach and write your messages for free. Connect
+LinkedNav and Claude can actually do it for you: find the right people, send the invites
+and messages, read your replies, and show you how it's going. This takes about two minutes.
 
----
+## 1. Get your key
 
-## 1. Get an API key
+1. Sign up or log in at [linkednav.com](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os) (there's a free trial).
+2. Open [linkednav.com/app/api-keys](https://www.linkednav.com/app/api-keys?utm_source=github&utm_campaign=outreach-os).
+3. Create a key and copy it. Keep it private, like a password.
 
-1. Sign up / log in at **[linkednav.com](https://www.linkednav.com?utm_source=github&utm_campaign=outreach-os)** (free trial).
-2. Go to **[www.linkednav.com/app/api-keys](https://www.linkednav.com/app/api-keys?utm_source=github&utm_campaign=outreach-os)**.
-3. Create a key and copy it. Treat it like a password.
+## 2. Add LinkedNav to your app
 
-**Server URL:** `https://mcp.linkednav.com/`
-**Transport:** Streamable HTTP (JSON-RPC + SSE)
+Pick the app you use. Paste your key where it says `YOUR_KEY`.
 
-Authentication — either works:
-- **API key header:** `Authorization: Bearer <YOUR_KEY>`  *(or)*  `X-API-Key: <YOUR_KEY>`
-- **OAuth 2.1** (PKCE): sign in through the connector's browser flow — no key to paste.
-
----
-
-## 2. Add the server to your client
-
-### Claude Code (CLI)
+### Claude Code
 ```bash
 claude mcp add --transport http linkednav https://mcp.linkednav.com/ \
   --header "Authorization: Bearer YOUR_KEY"
 ```
-Verify: `claude mcp list` should show `linkednav`. Then start a session and ask an
-outreach question — the OS will call LinkedNav tools automatically.
+To check it worked, run `claude mcp list`. You should see `linkednav`.
 
-### Claude Desktop / claude.ai (custom connector)
-Settings → **Connectors** → **Add custom connector**:
-- **Name:** LinkedNav
-- **URL:** `https://mcp.linkednav.com/`
-- Choose **OAuth** and sign in when prompted (no key needed), **or** add an
-  `Authorization: Bearer YOUR_KEY` header if your client supports header auth.
+### Claude Desktop or claude.ai
+1. Go to Settings, then Connectors, then Add custom connector.
+2. Name it `LinkedNav`.
+3. URL: `https://mcp.linkednav.com/`
+4. Choose to sign in with your browser (no key to paste), or add a header
+   `Authorization: Bearer YOUR_KEY` if your app asks for one.
 
-### Cursor / Cline / other MCP clients
-Add to your MCP config (e.g. `~/.cursor/mcp.json`):
+### Cursor, Cline, or another MCP app
+Add this to your MCP settings file (for Cursor that's `~/.cursor/mcp.json`):
 ```json
 {
   "mcpServers": {
@@ -52,43 +41,38 @@ Add to your MCP config (e.g. `~/.cursor/mcp.json`):
 }
 ```
 
-### SDK / programmatic
-Point any MCP-capable client at `https://mcp.linkednav.com/` with the
-`Authorization: Bearer` (or `X-API-Key`) header. OAuth discovery is published at
-`/.well-known/oauth-protected-resource`.
+## 3. Check it's working
 
----
+Ask Claude: **"Check my LinkedNav account."**
+If it shows your plan and credits, you're connected.
 
-## 3. Confirm it's live
+Then try: **"Audit my outreach."** Claude runs a full review of your account and tells you
+what to fix first.
 
-Ask Claude: **"Check my LinkedNav account status."**
-It should call `get_account_status` and return your plan, credits, and connected
-LinkedIn senders. If you see real numbers, you're connected.
+## What it costs
 
-Then: **"Audit my outreach."** → `full_audit` runs the whole review.
+Most things are included in your plan. A few extras use credits, and Claude always shows
+you the price before it charges:
 
----
+- Finding someone's email or phone: 1 credit each, and only when it actually finds one.
+- Filling in profile details like job, company, and location: about 0.07 credits per
+  profile found. Claude shows you the total and waits for your yes.
 
-## What each capability costs
+A few features need the Pro plan (things like auto-replies and some lead sources). Claude
+will tell you if something needs Pro.
 
-Most tools are included with your plan. A few are credit-metered (LinkedNav relays the
-exact cost before charging — you confirm first):
+## If something goes wrong
 
-- **Email / phone enrichment** — 1 credit each, charged only when a result is found.
-- **Profile enrichment** (`enrich_profiles`) — ~0.07 credits/profile, charged only for
-  found profiles; call returns an estimate before you confirm.
-- **Comment-monitor targets** — free allotment per seat, then credit-metered.
+- **"Not authorized" or a login error.** Your key is missing or expired. Make a new one
+  at [linkednav.com/app/api-keys](https://www.linkednav.com/app/api-keys?utm_source=github&utm_campaign=outreach-os) and add it again.
+- **Claude doesn't see the tools.** Make sure LinkedNav shows up in your app's connector
+  list, and that the address ends in a slash: `https://mcp.linkednav.com/`.
+- **"No LinkedIn account connected."** Connect one first. Just ask Claude, "Connect my
+  LinkedIn account," and it gives you a private, secure link to do it. You never paste a
+  password into the chat.
 
-Pro-only capabilities (auto-reply, monitor-mode comment campaigns, connection
-withdrawal, multi-setup, richer signal types) are noted in `reference/mcp-tools.md`.
+## For the technically curious
 
----
-
-## Troubleshooting
-
-- **401 / "unauthorized"** — key missing, revoked, or expired. Re-create at
-  `/app/api-keys` and re-add the header.
-- **Tools don't appear** — confirm the server shows in your client's MCP list and the
-  URL ends in a trailing `/`.
-- **"No LinkedIn sender connected"** — connect one first: ask "Connect my LinkedIn
-  account," which runs `start_linkedin_connect` and returns a private link.
+- The server speaks the Model Context Protocol over HTTP.
+- Sign in with an API key (`Authorization: Bearer` or `X-API-Key` header) or with OAuth.
+- Everything runs inside your own account, using your own LinkedIn login.
