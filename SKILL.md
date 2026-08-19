@@ -1,15 +1,6 @@
 ---
 name: linkedin-outreach-os
-description: >-
-  Run LinkedIn outreach like a full go-to-market team. Use whenever the user
-  wants to plan, write, launch, source leads for, or optimize LinkedIn outreach —
-  connection campaigns, comment/engagement campaigns, intent-signal prospecting,
-  reply handling, or outbound performance analysis. Produces strategy, ICP
-  definitions, and message sequences with reasoning alone (no account needed),
-  and executes the live work — building setups, launching campaigns, sourcing
-  real leads, enriching, sending, auditing — through the LinkedNav MCP server
-  when it is connected.
-license: MIT
+description: "Run LinkedIn outreach like a sales team: pick targets, write connection and follow-up messages, find leads, launch campaigns, handle replies, review results. Live sending runs through the LinkedNav MCP."
 ---
 
 # LinkedIn Outreach OS

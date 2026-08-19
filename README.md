@@ -35,12 +35,19 @@ instead of hours.
 
 **1. Add the skill (free).**
 
-In Claude Code:
+*Using Claude Code?* Clone it into your skills folder:
 ```bash
 git clone https://github.com/linglistack/linkedin-outreach-os \
   ~/.claude/skills/linkedin-outreach-os
 ```
-In Claude Desktop or claude.ai: go to Settings > Capabilities > Skills and upload this folder.
+Start a new session and it's ready. Type `/linkedin-outreach-os`, or just describe an outreach task.
+
+*Using Claude Desktop or claude.ai?* These take a single **`.zip`** file, not a folder:
+1. Download [**linkedin-outreach-os.zip**](https://github.com/linglistack/linkedin-outreach-os/releases/latest/download/linkedin-outreach-os.zip).
+2. In Claude, open **Settings > Skills** (some versions put it under **Settings > Features**), and turn on Skills if it asks.
+3. Upload the `.zip`.
+
+Custom skills need a paid Claude plan (Pro, Max, Team, or Enterprise).
 
 **2. Ask Claude about your outreach.** For example:
 > "I sell bookkeeping to small law firms. Who should I target on LinkedIn, and what
