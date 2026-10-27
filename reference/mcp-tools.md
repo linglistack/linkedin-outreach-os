@@ -22,6 +22,7 @@ Convention: **R** = read-only, **W** = write/side-effect, **W!** = destructive (
 | `analyze_pipeline` | R | `limit?` (def 10), `days?` (def 90) | People ranked by conversion likelihood: opportunities, waitingOnYou, goingQuiet, warmBench |
 | `diagnose_campaign` | R | `campaignId?` | Status-aware doctor: blockers, warnings, next send, fix |
 | `generate_message_templates` | R | `campaignId?`, `promptId?`, `useExistingAsBaseline?` | Full sequence draft + exact `update_prompt` call (does **not** save) |
+| `draft_post` | R | `about?`, `details?` (the user's facts and answers), `usedShapes?[]`, `writeAnyway?`, `previousDrafts?[]`, `language?`, `connectionId?` | One post draft in the user's voice (reads their posts) or in the next unused shape, plus `usedShapes`, `nextShape`, their best posts with numbers, and the `create_post` call to publish; or `status: "questions"` (up to 3, with examples) when facts are missing. Saves and posts nothing |
 
 ---
 
@@ -66,6 +67,17 @@ benefits, features, pricingInfo, problemsSolved, uniqueValue.
 | `link_list_to_campaign` | W | `campaignId`, `listId` |
 | `remove_leads_from_campaign` | W | `campaignId`, `contactIds[]` |
 | `prioritize_campaign_leads` | W | `campaignId`, `priorityRank[]` (contactIds in order) |
+
+---
+
+## Your posts
+
+| Tool | R/W | Key params |
+|------|-----|-----------|
+| `get_my_profile` | R | `connectionId?` → `accounts[].profileUrl` |
+| `list_posts_by_author` | R | `author` (a `profileUrl`, member id or company id), `limit?`, `cursor?`, `isCompany?` |
+| `get_post` | R | `post` (a post link or id) → its `socialId` |
+| `create_post` | W | `text`, `attachmentUrls?`, `link?`, `mentions?` (written `{{0}}`, `{{1}}` in the text), `repostOf?`, `asOrganization?`. Publishes publicly: only the exact text the user approved |
 
 ---
 

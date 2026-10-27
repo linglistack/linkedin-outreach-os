@@ -23,6 +23,7 @@ This skill turns Claude into a small outreach team that does all of it for you:
 
 - Works out who your best customers are and what to say to them
 - Writes your connection note and follow-up messages
+- Writes your LinkedIn posts in your own voice, and asks for the details a good post needs instead of guessing
 - Finds real people who fit, including ones already showing they're ready to buy
 - Sends the invites and messages for you, at a safe daily pace
 - Reads your replies and points out who's worth a call
@@ -73,6 +74,7 @@ That's it. Now Claude runs your LinkedIn outreach for you.
 
 - "Who should I target, and what's my angle?"
 - "Write my invite and follow-up messages."
+- "Write a LinkedIn post about this, the way I write." (Then: "another one" for a new shape.)
 - "Find people who might want what I sell."
 - "Set up my campaign and turn it on."
 - "What replies came in, and what should I say back?"

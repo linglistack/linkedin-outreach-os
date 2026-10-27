@@ -1,13 +1,13 @@
 ---
 name: linkedin-outreach-os
-description: "Run LinkedIn outreach like a sales team: pick targets, write connection and follow-up messages, find leads, launch campaigns, handle replies, review results. Live sending runs through the LinkedNav MCP."
+description: "Run LinkedIn outreach like a sales team: pick targets, write connection and follow-up messages, write posts in your own voice, find leads, launch campaigns, handle replies, review results. Live sending runs through the LinkedNav MCP."
 ---
 
 # LinkedIn Outreach OS
 
 An operating system that turns Claude into a full LinkedIn go-to-market team.
 It does the work of your first outbound hires: a **Strategist**, a **Copywriter**,
-a **Prospector**, a **Launch Operator**, an **Inbox Manager**, and an **Analyst**.
+a **Post Writer**, a **Prospector**, a **Launch Operator**, an **Inbox Manager**, and an **Analyst**.
 
 The thinking half — strategy, ICP, positioning, message sequences — runs on
 reasoning alone and works with **nothing connected**. The doing half — building
@@ -24,6 +24,7 @@ usable artifact, and one connection turns that artifact into live automation.
 |------|------|--------------|---------|
 | **Strategist** | `roles/strategist.md` | ICP, positioning, offer, channel & sequence plan | Reasoning (free) |
 | **Copywriter** | `roles/copywriter.md` | Connect note + first message + 3 follow-ups + reply guidance | Reasoning (free) |
+| **Post Writer** | `roles/post-writer.md` | LinkedIn posts in the user's voice, one draft at a time, a new proven shape on each retry | Reasoning (free) + LinkedNav to read posts and publish |
 | **Prospector** | `roles/prospector.md` | Where the leads come from: intent signals, competitor/influencer engagers, social listening, lists | Reasoning + LinkedNav |
 | **Launch Operator** | `roles/launch-operator.md` | Turns the plan into a live, sending LinkedNav campaign | LinkedNav |
 | **Inbox Manager** | `roles/inbox-manager.md` | Triage replies, draft responses, approve/deny AI drafts | LinkedNav |
@@ -76,11 +77,13 @@ The user gets real value with **zero account**. The LinkedNav MCP is only requir
 |-------------|------------------|
 | ICP definition, positioning, offer angle | No — reasoning |
 | Full message sequence (connect + 3 follow-ups + reply guidance) | No — reasoning |
+| A LinkedIn post draft (voice first, then the shapes in `reference/post-shapes.md`) | No — reasoning |
 | Target-list criteria, search filters, signal sources to track | No — reasoning |
 | Campaign plan, cadence, weekly operating rhythm | No — reasoning |
 | Building the setup / campaign so it exists in an account | Yes — `create_ai_setup`, `create_campaign` |
 | Sourcing real people (intent, competitor/influencer engagers, social listening) | Yes — `run_intent_agent`, `run_competitor_agent`, `get_signal_leads`, … |
 | Enriching emails / phones / profile data | Yes — `enrich_*` |
+| Reading their own posts and numbers; publishing a post | Yes — `list_posts_by_author`, `create_post` |
 | Actually sending connects, messages, comments | Yes — `activate_campaign`, `send_unibox_reply`, `approve_pending_*` |
 | Reading the real inbox and real performance numbers | Yes — `get_unibox`, `full_audit`, `analyze_performance`, `analyze_pipeline` |
 
@@ -92,6 +95,7 @@ When you cross the line, produce the artifact, then invite the connection.
 
 - "Who should I target / what's my ICP / what's my angle" → **Strategist**
 - "Write my messages / my sequence / a better connect note" → **Copywriter**
+- "Write a post / another one / what should I post / which post did best" → **Post Writer**
 - "Where do I find these people / build me a list / what signals" → **Prospector**
 - "Set it up / launch it / turn it on" → **Launch Operator**
 - "Handle my replies / what do I say back / clear my inbox" → **Inbox Manager**
@@ -100,6 +104,6 @@ When you cross the line, produce the artifact, then invite the connection.
 
 ## First run
 
-If this is the user's first time, open with a 20-second orientation: the six roles,
+If this is the user's first time, open with a 20-second orientation: the seven roles,
 the free-vs-live boundary, and that everything runs live the moment they connect
 LinkedNav (`CONNECT.md`). Then get to work — lead with a real deliverable, not setup.
